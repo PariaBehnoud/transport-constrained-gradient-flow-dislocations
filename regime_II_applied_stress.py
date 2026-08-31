@@ -9,10 +9,10 @@ from scipy.optimize import minimize_scalar
 #
 # D = d/eps
 # T = tau*q0/A_psi
-# kh = K/(A_psi*eps)
+# Lambda = K/(A_psi*eps)
 # r = a/eps
 #
-# Ehat(D,T) = (kh/2)*log((D**2+r**2)/r**2) + G(D) - T*D
+# Ehat(D,T) = (Lambda/2)*log((D**2+r**2)/r**2) + G(D) - T*D
 # Stationary points satisfy F_red/A_psi = T.
 
 
@@ -30,7 +30,7 @@ AUX_LINE_W = 2.2
 # Dimensionless parameters
 
 r = 1.4
-kh = 0.4
+Lambda = 0.4
 
 
 # Lattice-energy shape functions
@@ -99,7 +99,7 @@ def Ehat(D, T):
 
     elastic_part = (
         0.5
-        * kh
+        * Lambda
         * np.log(
             (D**2 + r**2) / r**2
         )
@@ -121,7 +121,7 @@ def Ehat(D, T):
 def Fhat(D, T=0.0):
 
     return (
-        kh * D / (D**2 + r**2)
+        Lambda * D / (D**2 + r**2)
         + Gp(D)
         - T
     )
@@ -129,12 +129,12 @@ def Fhat(D, T=0.0):
 
 # Fold stresses
 
-def folds(kappa_hat):
+def folds(Lambda_value):
 
     def f(D):
 
         return (
-            kappa_hat
+            Lambda_value
             * D
             / (D**2 + r**2)
             + Gp(D)
@@ -168,18 +168,18 @@ def folds(kappa_hat):
     )
 
 
-# Folds for kh = 0.4
+# Folds for Lambda = 0.4
 
-T_minus, T_plus, D_minus, D_plus = folds(kh)
+T_minus, T_plus, D_minus, D_plus = folds(Lambda)
 
 
 print(
-    f"collapse fold  T_- = {T_minus:+.5f} "
+    f"decreasing-separation fold  T_- = {T_minus:+.5f} "
     f"at D = {D_minus:.4f}"
 )
 
 print(
-    f"unzipping fold T_+ = {T_plus:+.5f} "
+    f"unbinding fold              T_+ = {T_plus:+.5f} "
     f"at D = {D_plus:.4f}"
 )
 
@@ -255,7 +255,7 @@ ax_a.set_xlabel(
 
 
 ax_a.set_ylabel(
-    r"$\widehat{\mathcal{E}}_{\rm rel}(D;T)$",
+    r"$\widehat{\mathcal{E}}(D;T)$",
     fontsize=LABEL_FS
 )
 
@@ -338,7 +338,7 @@ ax_b.set_xlabel(
 
 
 ax_b.set_ylabel(
-    r"$F_{\rm red}/A_\psi$",
+    r"$\mathcal{F}_{\rm II}(D;\Lambda)$",
     fontsize=LABEL_FS
 )
 
@@ -422,7 +422,7 @@ ax_c.plot(
     Tm,
     color="tab:blue",
     lw=LINE_W,
-    label=r"$T_-$: collapse"
+    label=r"$T_-$: decreasing separation"
 )
 
 
@@ -431,7 +431,7 @@ ax_c.plot(
     Tp,
     color="tab:red",
     lw=LINE_W,
-    label=r"$T_+$: unzipping"
+    label=r"$T_+$: unbinding"
 )
 
 
@@ -443,7 +443,7 @@ ax_c.axhline(
 
 
 ax_c.set_xlabel(
-    r"$\hat{\kappa}=K/(A_\psi\varepsilon)$",
+    r"$\Lambda=K/(A_\psi\varepsilon)$",
     fontsize=LABEL_FS
 )
 
