@@ -216,3 +216,8 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# PSC job files and outputs
+job_*.slurm
+*.out
+single_dx*.npz
