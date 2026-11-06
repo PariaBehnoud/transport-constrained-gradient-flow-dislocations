@@ -1,10 +1,12 @@
 # Transport-Constrained Gradient-Flow Description of Continuum Dislocation Dynamics
 
-This repository contains the Python code accompanying the manuscript
+This repository contains the Python code accompanying the paper
 
 **A Transport-Constrained Gradient-Flow Description of Continuum Dislocation Dynamics**
 
-by **Paria Behnoud, Anthony Rollett, Carlos Mora-Corral, and Kaushik Dayal**.
+by **Paria Behnoud, Anthony Rollett, Carlos Mora-Corral, and Kaushik Dayal**,
+*Journal of the Mechanics and Physics of Solids* (2026), 106909.
+DOI: [10.1016/j.jmps.2026.106909](https://doi.org/10.1016/j.jmps.2026.106909)
 
 The code reproduces Section 7: the opposite-sign dislocation pair (Section 7.C) and the spreading of a single dislocation core (Remark 7.1), with the figures and the values reported in the paper.
 
@@ -16,7 +18,7 @@ Section 7 restricts the continuum model of Sections 2-4 to a single glide layer.
 
 with `gamma` even in `x1`; for a single dislocation, `q >= 0` everywhere and the same equation holds on the whole line. In the code, the equivalent form `d gamma/dt = -m |d gamma/dx1| dE_tot/dgamma` is solved on the whole grid.
 
-where (Eq. (7.14))
+The driving force is (Eq. (7.14))
 
     dE_tot/dgamma = (K/q0^2) p.v. int q(x')/(x1 - x') dx'    elastic (Peierls-Nabarro)
                     - kappa_h dq/dx1                         core energy
@@ -100,3 +102,19 @@ Python 3 with NumPy, SciPy, and Matplotlib:
 The last two commands are the domain and grid checks of Remark 7.1.
 
 Run times on one core are about 10 minutes for `regime_I.py`, about 1.5 hours for `regime_II.py`, about 30 minutes for `checks.py`, several hours for `regime_II_threshold.py`, and about 2 hours for `grid_check.py`.
+
+
+## Citation
+
+If you use this code, please cite:
+
+```
+@article{Behnoud2026,
+  author  = {Behnoud, Paria and Rollett, Anthony and Mora-Corral, Carlos and Dayal, Kaushik},
+  title   = {A transport-constrained gradient-flow description of continuum dislocation dynamics},
+  journal = {Journal of the Mechanics and Physics of Solids},
+  year    = {2026},
+  pages   = {106909},
+  doi     = {10.1016/j.jmps.2026.106909}
+}
+```
